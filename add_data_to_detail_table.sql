@@ -11,4 +11,4 @@ JOIN country on city.country_id = country.country_id
 JOIN payment on rental.rental_id = payment.rental_id
 JOIN film on inventory.film_id = film.film_id
 JOIN film_actor on film.film_id = film_actor.film_id
-JOIN actor on film_actor.actor_id = actor.actor_id
+JOIN actor on film_actor.actor_id = actor.actor_id;

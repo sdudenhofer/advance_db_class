@@ -7,11 +7,14 @@ CREATE FUNCTION function_update_summary_table (
 	times_rented SMALLINT,
 	store_id SMALLINT
 )
-RETURNS BOOLEAN AS $$
+RETURNS trigger AS $update_values$
 DECLARE passed BOOLEAN;
 BEGIN
 	INSERT INTO summary_table (film_title, city, country, actors, total_paid, times_rented, store_id)
 	VALUES($1, $2, $3, $4, $5, $6, $7);
+END; $update_values$ LANGUAGE plpgsql;
 
-	RETURN passed;
-END; $$ LANGUAGE plpgsql;
+CREATE TRIGGER detail_table_trigger
+AFTER INSERT OR UPDATE ON detail_summary
+FOR EACH ROW
+EXECUTE FUNCTION update_values();
